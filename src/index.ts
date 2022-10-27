@@ -15,15 +15,14 @@ const corsOptions = {
 }
 
 async function main() {
-// establish database connection
-myDataSource
-    .initialize()
-    .then(() => {
-        console.log("\n 😻 Database connection is active!")
-    })
-    .catch((err:any) => {
-        console.error("Error during Data Source initialization:", err)
-    })
+await myDataSource
+        .initialize()
+        .then(() => {
+            console.log("\n 😻 Database connection is active!")
+        })
+        .catch((err:any) => {
+            console.error("Error during Data Source initialization:", err)
+        })
 
   const schema = await buildSchema({ resolvers: [BookResolver] });
 
@@ -35,7 +34,7 @@ myDataSource
 
   server.applyMiddleware({ app });
   
-  app.listen({ port: process.env.SERVER_PORT }, () =>
+  await app.listen({ port: process.env.SERVER_PORT }, () =>
     console.log(`\n 🚀 Server ready at http://localhost:${process.env.SERVER_PORT}${server.graphqlPath}`)
   );    
 }

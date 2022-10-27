@@ -1,4 +1,5 @@
-import { DataSource } from "typeorm"
+import { DataSource } from "typeorm";
+require("dotenv").config();
 
 export const myDataSource = new DataSource({
     type: "sqlite",
