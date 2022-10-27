@@ -2,21 +2,13 @@ import { DataSource } from "typeorm";
 require("dotenv").config();
 
 export const myDataSource = new DataSource({
-    type: "sqlite",
-    database: "./db.sqlite3",
-    entities: ["./src/models/*.ts"],
+    type: "postgres",
+    host: process.env.PG_HOST,
+    port: 5432,
+    username: process.env.PG_ACCOUNT,
+    password: process.env.PG_PASSWORD,
+    database: process.env.PG_DATABASE,
     synchronize: true,
-})
-
-// type: "postgres",
-// host: process.env.PG_HOST,
-// port: process.env.PG_PORT,
-// username: process.env.PG_ACCOUNT,
-// password: process.env.PG_PASSWORD,
-// database: process.env.PG_DATABASE,
-// synchronize: process.env.PG_SYNCHRONIZE,
-// logging: process.env.PG_LOGGING,
-// entities: [process.env.PG_ENTITIES],
-// cli: {
-//   entitiesDir: process.env.PG_ENTITIES_DIR,
-// }
+    logging: false,
+    entities: ["src/models/*.ts"]
+});
