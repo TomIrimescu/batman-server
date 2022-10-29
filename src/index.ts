@@ -4,11 +4,13 @@ import { ApolloServer } from "apollo-server-express";
 import { buildSchema } from "type-graphql";
 
 import { BookResolver } from "./resolvers/BookResolver";
+import { UserResolver } from './resolvers/UserResolver';
 import { myDataSource } from "../app-data-source";
 
 require("dotenv").config();
 
 import cors from "cors";
+
 const corsOptions = {
   origin: '*',
   optionsSuccessStatus: 200 
@@ -24,7 +26,7 @@ await myDataSource
             console.error("Error during Data Source initialization:", err)
         })
 
-  const schema = await buildSchema({ resolvers: [BookResolver] });
+  const schema = await buildSchema({ resolvers: [BookResolver, UserResolver] });
 
   const server = new ApolloServer({ schema });
   await server.start();
